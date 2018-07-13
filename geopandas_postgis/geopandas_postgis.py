@@ -39,7 +39,7 @@ class PostGIS:
             schema: Name of schema if any, default None
             transform_crs: Boolean indicating whether GeoDataframe needs transformed
             srid: Projection system by EPSG as integer
-            **kwargs:
+            **kwargs: Keyword args for to_sql method on Dataframe object
 
         Returns:
             None
@@ -53,5 +53,6 @@ class PostGIS:
         gpd_copy['geom'] = gpd_copy.geometry.apply(lambda geom: WKTElement(geom.wkt, srid=gdf_srid))
         gpd_copy.drop('geometry', 1, inplace=True)
 
-        self._obj.to_sql(name=table_name, con=con, schema=schema, dtype={'geom': Geometry(geometry_type=geometry.upper(),
-                                                                                          srid=gdf_srid)}, **kwargs)
+        gpd_copy.to_sql(name=table_name, con=con,
+                        schema=schema, dtype={'geom': Geometry(geometry_type=geometry.upper(),
+                                                               srid=gdf_srid)}, **kwargs)
