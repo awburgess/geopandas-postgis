@@ -2,4 +2,4 @@
 Test configuration file
 """
 
-POSTGRES_ENGINE_STRING = "postgresql+psycopg2://postgres:postgres/localhost:5050"
+POSTGRES_ENGINE_STRING = 'postgresql+psycopg2://postgres:postgres@localhost/postgres'

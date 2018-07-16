@@ -24,7 +24,8 @@ class PostGIS:
         """
         return int(self._obj.crs['init'].replace('epsg:', ''))
 
-    def to_postgis(self, con: _sqlalchemy_engine, table_name: str, geometry: str, schema: str=typing.Union[str, None],
+    def to_postgis(self, con: _sqlalchemy_engine, table_name: str,
+                   geometry: str, schema: typing.Union[str, None]=None,
                    transform_crs: bool=False, srid: int=4326, **kwargs) -> typing.NoReturn:
         """
         Loads a GeoDataframe to PostGIS

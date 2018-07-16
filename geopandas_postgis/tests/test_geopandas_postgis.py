@@ -56,7 +56,7 @@ def test_to_postgis(dummy_dataframe: gpd.GeoDataFrame) -> typing.NoReturn:
 
     test_gdf = gpd.read_file(dummy_dataframe)
 
-    test_gdf.postgis.to_postgis(engine, 'test', 'MULTIPOLYGON')
+    test_gdf.postgis.to_postgis(engine, 'test', 'GEOMETRY', if_exists='replace')
 
     postgis_count = engine.execute("""SELECT COUNT(*) as test_cnt FROM test""").fetchone().test_cnt
 
