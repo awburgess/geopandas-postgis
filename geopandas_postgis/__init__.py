@@ -1,0 +1,1 @@
+from geopandas_postgis.geopandas_postgis import PostGIS
