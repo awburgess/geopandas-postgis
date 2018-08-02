@@ -5,7 +5,7 @@ Utilities oriented to using PostGIS features.
 ## Install
 
 ```python
-pip setup.py install
+python setup.py install
 ```
 
 ## Requirements
