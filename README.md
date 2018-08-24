@@ -5,7 +5,7 @@ Utilities oriented to using PostGIS features.
 ## Install
 
 ```python
-python setup.py install
+pip install geopandas-postgis
 ```
 
 ## Requirements
