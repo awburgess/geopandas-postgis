@@ -14,7 +14,7 @@ setup(
     name='geopandas-postgis',
     version='0.1.1',
     packages=['geopandas_postgis', 'geopandas_postgis.tests'],
-    install_requires=['SQLAlchemy', 'GeoAlchemy2', 'geopandas', 'psycopg2'],
+    install_requires=['SQLAlchemy', 'GeoAlchemy2', 'geopandas', 'psycopg2-binary'],
     url='',
     license='MIT License',
     author='Aaron Burgess',
