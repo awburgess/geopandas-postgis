@@ -51,9 +51,8 @@ class PostGIS:
 
         gdf_srid = self._extract_srid_int_from_crs()
 
-        gpd_copy['geom'] = gpd_copy.geometry.apply(lambda geom: WKTElement(geom.wkt, srid=gdf_srid))
-        gpd_copy.drop('geometry', 1, inplace=True)
+        gpd_copy[self._obj.geometry.name] = gpd_copy.geometry.apply(lambda geom: WKTElement(geom.wkt, srid=gdf_srid))
 
         gpd_copy.to_sql(name=table_name, con=con,
-                        schema=schema, dtype={'geom': Geometry(geometry_type=geometry.upper(),
+                        schema=schema, dtype={self._obj.geometry.name: Geometry(geometry_type=geometry.upper(),
                                                                srid=gdf_srid)}, **kwargs)
