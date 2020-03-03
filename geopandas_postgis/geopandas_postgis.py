@@ -22,11 +22,11 @@ class PostGIS:
         Returns:
             EPSG integer
         """
-        return int(self._obj.crs['init'].replace('epsg:', ''))
+        return int(self._obj.crs.srs.replace('epsg:', ''))
 
     def to_postgis(self, con: _sqlalchemy_engine, table_name: str,
                    geometry: str, schema: typing.Union[str, None]=None,
-                   transform_crs: bool=False, srid: int=4326, **kwargs) -> typing.NoReturn:
+                   transform_crs: bool=False, srid: int=None, **kwargs) -> typing.NoReturn:
         """
         Loads a GeoDataframe to PostGIS
 
@@ -49,7 +49,7 @@ class PostGIS:
         if transform_crs:
             gpd_copy = gpd_copy.to_crs({'init': 'epsg:{}'.format(srid)})
 
-        gdf_srid = self._extract_srid_int_from_crs()
+        gdf_srid = self._extract_srid_int_from_crs() if srid is None else srid
 
         gpd_copy[self._obj.geometry.name] = gpd_copy.geometry.apply(lambda geom: WKTElement(geom.wkt, srid=gdf_srid))
 
