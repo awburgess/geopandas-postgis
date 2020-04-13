@@ -22,7 +22,13 @@ class PostGIS:
         Returns:
             EPSG integer
         """
-        return int(self._obj.crs['init'].replace('epsg:', ''))
+        try:
+            # old way of specifying crs = {'init': 'epsg:4326'}, prior to geopandas 0.7.0
+            return int(self._obj.crs['init'].replace('epsg:', ''))
+        except TypeError:
+            # new pyproj way of specifiying crs = 'epsg:4326', from geopandas 0.7.0 onwards
+            # ref: https://geopandas.org/projections.html#upgrading-to-geopandas-0-7-with-pyproj-2-2-and-proj-6
+            return self._obj.crs.to_epsg()
 
     def to_postgis(self, con: _sqlalchemy_engine, table_name: str,
                    geometry: str, schema: typing.Union[str, None]=None,
